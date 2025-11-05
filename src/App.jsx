@@ -560,11 +560,6 @@ const [menuOpen, setMenuOpen] = useState(false);
           </div>
         </div>
       </section>
-      <form name="contact" netlify netlify-honeypot="bot-field" hidden>
-        <input type="text" name="name" />
-        <input type="email" name="email" />
-        <textarea name="message"></textarea>
-      </form>
 
       {/* Footer */}
       <footer className="bg-gradient-to-b from-black to-[#0A0A0A] border-t border-[#D4AF37]/20 py-16">
