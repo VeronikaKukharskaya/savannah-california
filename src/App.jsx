@@ -42,7 +42,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     }
   ]
 
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxT7a-Ij2jBYvH3TDRW3413rnyaxqAwoEwpDGtbChn5D2PVWvuOq59_j9wx3cM-RULU/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyUDaKk9Qb0QbYhIcKJyFrQXR-nPpgA_tk52dkGnY7Hdup_L-AogOvgTYQzBZU8jsXh/exec";
   
   const handleSubmit = async (e) => {
     e.preventDefault();
