@@ -24,11 +24,6 @@ function App() {
 const [formSent, setFormSent] = useState(false);
 const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    alert('Thank you for your interest! We will contact you soon.')
-  }
-
   const features = [
     {
       icon: Crown,
@@ -46,6 +41,47 @@ const [menuOpen, setMenuOpen] = useState(false);
       description: 'Every kitten is backed by a comprehensive health guarantee, TICA registration, and our commitment to lifetime breeder support.'
     }
   ]
+
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxT7a-Ij2jBYvH3TDRW3413rnyaxqAwoEwpDGtbChn5D2PVWvuOq59_j9wx3cM-RULU/exec";
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+
+    const data = {
+      name: form.name?.value || "",
+      email: form.email?.value || "",
+      phone: form.phone?.value || "",
+      message: form.message?.value || "",
+    };
+
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      
+      const formData = new URLSearchParams();
+      formData.append("form-name", "contact");
+      formData.append("name", data.name);
+      formData.append("email", data.email);
+      formData.append("phone", data.phone);
+      formData.append("message", data.message);
+
+      await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formData.toString(),
+      });   
+
+      setFormSent(true);
+      form.reset();
+    } catch (err) {
+      console.error("Form submit error:", err);
+      alert("Error when sending — check the connection. " + err.message);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -460,21 +496,7 @@ const [menuOpen, setMenuOpen] = useState(false);
                     name="contact"
                     method="POST"
                     data-netlify="true"
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      const form = e.target;
-                      const data = new FormData(form);
-                      fetch("/", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                        body: new URLSearchParams(data).toString(),
-                      })
-                        .then(() => {
-                          setFormSent(true);
-                          form.reset();
-                        })
-                        .catch((error) => alert(error));
-                    }}
+                    onSubmit={handleSubmit}
                   >
                     <input type="hidden" name="form-name" value="contact" />
                     <p className="hidden">
