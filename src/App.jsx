@@ -42,7 +42,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     }
   ]
 
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyUDaKk9Qb0QbYhIcKJyFrQXR-nPpgA_tk52dkGnY7Hdup_L-AogOvgTYQzBZU8jsXh/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyiYuNbfzXjRH1qB1WTCGGz-j-tES29tyCQCELRMTD60cRexp_H4l6RAADrZZGpZsNh/exec";
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -58,6 +58,7 @@ const [menuOpen, setMenuOpen] = useState(false);
     try {
       await fetch(GOOGLE_SCRIPT_URL, {
         method: "POST",
+        mode: "no-cors",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
       });
